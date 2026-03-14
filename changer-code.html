@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Changer le code SécuriPass</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f7fa;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:420px;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-top:5px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:30px;
+background:#29b3a0;
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Changer votre code SécuriPass</h1>
+
+<label>Ancien code</label>
+<input type="password" id="oldCode">
+
+<label>Nouveau code</label>
+<input type="password" id="newCode">
+
+<label>Confirmer le nouveau code</label>
+<input type="password" id="confirmCode">
+
+<button onclick="changeCode()">Modifier le code</button>
+
+<p id="message"></p>
+
+</div>
+
+<script>
+
+function changeCode(){
+
+let oldCode=document.getElementById("oldCode").value
+let newCode=document.getElementById("newCode").value
+let confirmCode=document.getElementById("confirmCode").value
+let msg=document.getElementById("message")
+
+if(newCode!==confirmCode){
+
+msg.innerText="Les codes ne correspondent pas"
+msg.style.color="red"
+return
+
+}
+
+msg.innerText="Code modifié avec succès"
+msg.style.color="green"
+
+}
+
+</script>
+
+</body>
+</html>

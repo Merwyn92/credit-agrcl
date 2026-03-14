@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code personnel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+      color: #132033;
+    }
+
+    .header {
+      height: 92px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #fff;
+    }
+
+    .brand {
+      text-align: center;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      margin: 0 auto 6px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1f8a70, #6bc5b1);
+    }
+
+    .brand-text {
+      font-size: 10px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: #1d2c2b;
+      letter-spacing: 0.4px;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 76px;
+      height: 92px;
+      background: #2d7d6a;
+      color: white;
+      border: none;
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    .wrapper {
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 30px 24px 40px;
+    }
+
+    h1 {
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 800;
+      color: #111a2d;
+      margin-bottom: 26px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: #2e3644;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .id-box {
+      border: 1px solid #d8dde5;
+      background: #f7f8fa;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-bottom: 26px;
+    }
+
+    .id-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .id-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: 1px;
+    }
+
+    .pin-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 2px solid #cfd6df;
+      background: white;
+    }
+
+    .dot.filled {
+      background: #2d7d6a;
+      border-color: #2d7d6a;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .key {
+      height: 72px;
+      border: none;
+      border-radius: 22px;
+      background: #f4f6f8;
+      color: #111827;
+      font-size: 28px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .key.action {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2d7d6a;
+    }
+
+    .main-btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .main-btn.disabled {
+      background: #e7e8ec;
+      color: #b2b7c0;
+      cursor: not-allowed;
+    }
+
+    .main-btn.enabled {
+      background: #2d7d6a;
+      color: white;
+      cursor: pointer;
+    }
+
+    .links {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .links a {
+      color: #2d7d6a;
+      text-decoration: underline;
+      font-size: 16px;
+    }
+
+    .notice {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f4f7f8;
+      color: #334155;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon"></div>
+      <div class="brand-text">MON ESPACE<br>CLIENT</div>
+    </div>
+    <button class="close-btn" type="button">×</button>
+  </header>
+
+  <main class="wrapper">
+    <h1>Entrer mon<br>code personnel</h1>
+
+    <p class="subtitle">
+      Saisissez votre code à 6 chiffres pour accéder à votre espace.
+    </p>
+
+    <div class="id-box">
+      <div class="id-label">Identifiant</div>
+      <div class="id-value" id="displayId">98652706859</div>
+    </div>
+
+    <div class="pin-title">CODE PERSONNEL</div>
+
+    <div class="pin-dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="keypad">
+      <button class="key" type="button" data-key="1">1</button>
+      <button class="key" type="button" data-key="2">2</button>
+      <button class="key" type="button" data-key="3">3</button>
+
+      <button class="key" type="button" data-key="4">4</button>
+      <button class="key" type="button" data-key="5">5</button>
+      <button class="key" type="button" data-key="6">6</button>
+
+      <button class="key" type="button" data-key="7">7</button>
+      <button class="key" type="button" data-key="8">8</button>
+      <button class="key" type="button" data-key="9">9</button>
+
+      <button class="key action" type="button" id="clearBtn">Effacer</button>
+      <button class="key" type="button" data-key="0">0</button>
+      <button class="key action" type="button" id="deleteBtn">Retour</button>
+    </div>
+
+    <button id="loginBtn" class="main-btn disabled" type="button" disabled>
+      SE CONNECTER
+    </button>
+
+    <div id="notice" class="notice">
+      Connexion réussie, redirection...
+    </div>
+
+    <div class="links">
+      <a href="#">J’ai oublié mon code personnel</a>
+      <a href="index.html">Revenir à la page identifiant</a>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const displayId = document.getElementById("displayId");
+
+    if (id) {
+      displayId.textContent = id;
+    }
+
+    let pin = "";
+
+    const dots = document.querySelectorAll(".dot");
+    const keys = document.querySelectorAll("[data-key]");
+    const clearBtn = document.getElementById("clearBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const notice = document.getElementById("notice");
+
+    function renderPin() {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("filled", index < pin.length);
+      });
+
+      if (pin.length === 6) {
+        loginBtn.disabled = false;
+        loginBtn.classList.remove("disabled");
+        loginBtn.classList.add("enabled");
+      } else {
+        loginBtn.disabled = true;
+        loginBtn.classList.remove("enabled");
+        loginBtn.classList.add("disabled");
+      }
+    }
+
+    keys.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (pin.length < 6) {
+          pin += btn.dataset.key;
+          renderPin();
+        }
+      });
+    });
+
+    clearBtn.addEventListener("click", () => {
+      pin = "";
+      renderPin();
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      pin = pin.slice(0, -1);
+      renderPin();
+    });
+
+    loginBtn.addEventListener("click", () => {
+      if (pin.length === 6) {
+        notice.style.display = "block";
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
